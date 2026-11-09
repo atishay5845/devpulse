@@ -1,0 +1,328 @@
+{
+  "info": {
+    "name": "DevPulse API",
+    "_postman_id": "a5f3d6e8-4b21-4c8f-8d1f-1c3b9b5e7a11",
+    "description": "Core DevPulse backend API workflow. Run Register, Login, Create project, then Create monitor.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "refresh_token",
+      "value": ""
+    },
+    {
+      "key": "project_id",
+      "value": "1"
+    },
+    {
+      "key": "monitor_id",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"rahul\",\n  \"email\": \"rahul@example.com\",\n  \"password\": \"StrongPass123!\",\n  \"first_name\": \"Rahul\"\n}"
+        },
+        "url": "{{base_url}}/auth/register/"
+      }
+    },
+    {
+      "name": "Login (save access token)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const body = pm.response.json();",
+              "if (body.access) pm.collectionVariables.set('access_token', body.access);",
+              "if (body.refresh) pm.collectionVariables.set('refresh_token', body.refresh);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"rahul\",\n  \"password\": \"StrongPass123!\"\n}"
+        },
+        "url": "{{base_url}}/auth/token/"
+      }
+    },
+    {
+      "name": "Current user",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": "{{base_url}}/auth/me/"
+      }
+    },
+    {
+      "name": "Create project",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const body = pm.response.json();",
+              "if (body.id) pm.collectionVariables.set('project_id', body.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"ShopKart Production\",\n  \"description\": \"Production website and API\"\n}"
+        },
+        "url": "{{base_url}}/projects/"
+      }
+    },
+    {
+      "name": "Create monitor",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const body = pm.response.json();",
+              "if (body.id) pm.collectionVariables.set('monitor_id', body.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"project\": \"{{project_id}}\",\n  \"name\": \"Example homepage\",\n  \"url\": \"https://example.com\",\n  \"check_interval\": 60,\n  \"timeout\": 10,\n  \"expected_status_code\": 200,\n  \"expected_keyword\": \"Example Domain\",\n  \"is_active\": true\n}"
+        },
+        "url": "{{base_url}}/monitors/"
+      }
+    },
+    {
+      "name": "List monitors",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": "{{base_url}}/monitors/"
+      }
+    },
+    {
+      "name": "Run monitor now",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": "{{base_url}}/monitors/{{monitor_id}}/check-now/"
+      }
+    },
+    {
+      "name": "Monitor check history",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": "{{base_url}}/monitors/{{monitor_id}}/checks/"
+      }
+    },
+    {
+      "name": "Incidents",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": "{{base_url}}/incidents/"
+      }
+    },
+    {
+      "name": "Analytics overview",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": "{{base_url}}/analytics/overview/"
+      }
+    },
+    {
+      "name": "Create email notification channel",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"project\": \"{{project_id}}\",\n  \"channel_type\": \"EMAIL\",\n  \"target\": \"alerts@example.com\",\n  \"is_active\": true\n}"
+        },
+        "url": "{{base_url}}/notification-channels/"
+      }
+    },
+    {
+      "name": "Refresh access token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const body = pm.response.json();",
+              "if (body.access) pm.collectionVariables.set('access_token', body.access);",
+              "if (body.refresh) pm.collectionVariables.set('refresh_token', body.refresh);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"refresh\": \"{{refresh_token}}\"\n}"
+        },
+        "url": "{{base_url}}/auth/token/refresh/"
+      }
+    },
+    {
+      "name": "Create status page",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"project\": \"{{project_id}}\",\n  \"title\": \"ShopKart Status\",\n  \"slug\": \"shopkart-status\",\n  \"is_public\": true\n}"
+        },
+        "url": "{{base_url}}/status-pages/"
+      }
+    },
+    {
+      "name": "Public status page (no auth)",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/public/status/shopkart-status/"
+      }
+    },
+    {
+      "name": "Notification logs",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": "{{base_url}}/notification-logs/"
+      }
+    },
+    {
+      "name": "Monitor analytics (7 days)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": "{{base_url}}/analytics/monitors/{{monitor_id}}/?period=7d"
+      }
+    }
+  ]
+}
