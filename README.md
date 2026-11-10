@@ -18,7 +18,7 @@ Track websites and APIs, detect service failures, investigate incidents, and kee
 
 <br/>
 
-[Live Application](https://YOUR-VERCEL-URL.vercel.app) · [API Documentation](https://YOUR-RENDER-URL.onrender.com/api/docs/) · [Report an Issue](../../issues)
+[Live Application](https://devpulse-seven-indol.vercel.app/) · [API Documentation](https://devpulse-api-n21z.onrender.com) · [Report an Issue](../../issues)
 
 > Replace the two deployment URL placeholders above with your actual Vercel and Render URLs before publishing this README.
 
