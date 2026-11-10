@@ -1,0 +1,49 @@
+name: Create DevPulse admin user
+
+on:
+  workflow_dispatch:
+    inputs:
+      username:
+        description: Admin username
+        required: true
+        type: string
+      email:
+        description: Admin email
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  create-admin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Create superuser
+        working-directory: backend
+        env:
+          SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          DEBUG: 'False'
+          ALLOWED_HOSTS: 'localhost,127.0.0.1'
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DJANGO_SUPERUSER_USERNAME: ${{ inputs.username }}
+          DJANGO_SUPERUSER_EMAIL: ${{ inputs.email }}
+          DJANGO_SUPERUSER_PASSWORD: ${{ secrets.DJANGO_SUPERUSER_PASSWORD }}
+        run: python manage.py createsuperuser --noinput

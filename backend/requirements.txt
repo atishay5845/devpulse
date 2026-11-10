@@ -6,3 +6,7 @@ psycopg[binary]>=3.2,<4
 requests>=2.32,<3
 python-dotenv>=1.1,<2
 drf-spectacular>=0.29,<1
+# Production hosting dependencies
+gunicorn>=23,<24
+dj-database-url>=2.3,<4
+whitenoise>=6.9,<7
