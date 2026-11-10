@@ -5,7 +5,13 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework import permissions
 
 from apps.accounts.views import RegisterView, MeView, DevPulseTokenObtainPairView
+from django.http import JsonResponse
 
+def health_check(request):
+    return JsonResponse({
+        "status": "ok",
+        "service": "DevPulse API"
+    })
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/auth/register/", RegisterView.as_view(), name="register"),
@@ -20,4 +26,5 @@ urlpatterns = [
     path("api/", include("apps.status_pages.urls")),
     path("api/schema/", SpectacularAPIView.as_view(permission_classes=[permissions.AllowAny]), name="schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema", permission_classes=[permissions.AllowAny]), name="swagger-ui"),
+    path("health/", health_check, name="health-check"),
 ]
