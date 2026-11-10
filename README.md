@@ -36,19 +36,19 @@ Instead of manually opening every URL to see whether it is working, DevPulse per
 
 ## 🚀 What you can do with DevPulse
 
-| Capability | What it does |
-|---|---|
-| **Project organization** | Group related websites and APIs into projects. |
-| **Website & API monitors** | Register public HTTP/HTTPS endpoints and define expected responses. |
-| **Scheduled health checks** | Check due monitors at configured intervals and record each result. |
-| **Response-time tracking** | Measure the elapsed time for each health check. |
-| **Incident detection** | Open incidents after consecutive failed checks to reduce false alarms. |
-| **Automatic recovery** | Resolve active incidents after consecutive successful checks. |
-| **Incident investigation** | Acknowledge incidents and add investigation notes to the timeline. |
-| **Notifications** | Configure project-level email and Discord webhook channels and inspect delivery logs. |
-| **Analytics** | Review monitor health, check counts, estimated uptime, and average response time. |
-| **Public status pages** | Publish a shareable page showing current service states and active incidents. |
-| **JWT authentication** | Register, sign in, refresh access tokens, and manage your profile. |
+| Capability                  | What it does                                                                          |
+| --------------------------- | ------------------------------------------------------------------------------------- |
+| **Project organization**    | Group related websites and APIs into projects.                                        |
+| **Website & API monitors**  | Register public HTTP/HTTPS endpoints and define expected responses.                   |
+| **Scheduled health checks** | Check due monitors at configured intervals and record each result.                    |
+| **Response-time tracking**  | Measure the elapsed time for each health check.                                       |
+| **Incident detection**      | Open incidents after consecutive failed checks to reduce false alarms.                |
+| **Automatic recovery**      | Resolve active incidents after consecutive successful checks.                         |
+| **Incident investigation**  | Acknowledge incidents and add investigation notes to the timeline.                    |
+| **Notifications**           | Configure project-level email and Discord webhook channels and inspect delivery logs. |
+| **Analytics**               | Review monitor health, check counts, estimated uptime, and average response time.     |
+| **Public status pages**     | Publish a shareable page showing current service states and active incidents.         |
+| **JWT authentication**      | Register, sign in, refresh access tokens, and manage your profile.                    |
 
 ## 🖥️ Application areas
 
@@ -75,40 +75,40 @@ Instead of manually opening every URL to see whether it is working, DevPulse per
 
 ### Frontend
 
-| Technology | Usage |
-|---|---|
-| React 18 | Component-based user interface |
-| Vite 6 | Development server and production build |
-| Tailwind CSS 3 | Utility-first styling |
-| React Router 6 | Client-side routing |
-| Axios | HTTP requests to the Django API |
-| Recharts | Analytics charts |
-| Lucide React | Interface icons |
-| date-fns | Date formatting and presentation |
+| Technology     | Usage                                   |
+| -------------- | --------------------------------------- |
+| React 18       | Component-based user interface          |
+| Vite 6         | Development server and production build |
+| Tailwind CSS 3 | Utility-first styling                   |
+| React Router 6 | Client-side routing                     |
+| Axios          | HTTP requests to the Django API         |
+| Recharts       | Analytics charts                        |
+| Lucide React   | Interface icons                         |
+| date-fns       | Date formatting and presentation        |
 
 ### Backend
 
-| Technology | Usage |
-|---|---|
-| Python 3.14 | Backend language |
-| Django 6.1 | Application framework |
-| Django REST Framework 3.18 | REST API layer |
-| Simple JWT | Access and refresh token authentication |
-| PostgreSQL | Persistent relational database |
-| psycopg | PostgreSQL driver |
-| Requests | HTTP/HTTPS health checks |
-| drf-spectacular | OpenAPI schema and Swagger UI |
-| django-cors-headers | Cross-origin API access from the frontend |
-| Gunicorn | Production WSGI server |
-| WhiteNoise | Django static-file serving |
+| Technology                 | Usage                                     |
+| -------------------------- | ----------------------------------------- |
+| Python 3.14                | Backend language                          |
+| Django 6.1                 | Application framework                     |
+| Django REST Framework 3.18 | REST API layer                            |
+| Simple JWT                 | Access and refresh token authentication   |
+| PostgreSQL                 | Persistent relational database            |
+| psycopg                    | PostgreSQL driver                         |
+| Requests                   | HTTP/HTTPS health checks                  |
+| drf-spectacular            | OpenAPI schema and Swagger UI             |
+| django-cors-headers        | Cross-origin API access from the frontend |
+| Gunicorn                   | Production WSGI server                    |
+| WhiteNoise                 | Django static-file serving                |
 
 ### Hosting and automation
 
-| Service | Responsibility |
-|---|---|
-| Vercel | React frontend hosting |
-| Render | Django API hosting |
-| Neon | Managed PostgreSQL database |
+| Service        | Responsibility                                                    |
+| -------------- | ----------------------------------------------------------------- |
+| Vercel         | React frontend hosting                                            |
+| Render         | Django API hosting                                                |
+| Neon           | Managed PostgreSQL database                                       |
 | GitHub Actions | Scheduled monitoring command and optional admin creation workflow |
 
 **No Redis or Celery is required** in the current implementation. Periodic checks are performed by the Django `run_monitor` management command, invoked by a scheduler.
@@ -345,26 +345,26 @@ Authorization: Bearer <access-token>
 
 ### Authentication
 
-| Method | Endpoint | Description | Auth |
-|---|---|---|---|
-| `POST` | `/api/auth/register/` | Register a user | Public |
-| `POST` | `/api/auth/token/` | Obtain JWT access and refresh tokens | Public |
-| `POST` | `/api/auth/token/refresh/` | Refresh an access token | Public with refresh token |
-| `GET` | `/api/auth/me/` | Retrieve current user profile | Required |
-| `PATCH` | `/api/auth/me/` | Update current user profile | Required |
+| Method  | Endpoint                   | Description                          | Auth                      |
+| ------- | -------------------------- | ------------------------------------ | ------------------------- |
+| `POST`  | `/api/auth/register/`      | Register a user                      | Public                    |
+| `POST`  | `/api/auth/token/`         | Obtain JWT access and refresh tokens | Public                    |
+| `POST`  | `/api/auth/token/refresh/` | Refresh an access token              | Public with refresh token |
+| `GET`   | `/api/auth/me/`            | Retrieve current user profile        | Required                  |
+| `PATCH` | `/api/auth/me/`            | Update current user profile          | Required                  |
 
 The token endpoint expects a `username` and `password`.
 
 ### Projects and monitors
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET`, `POST` | `/api/projects/` | List or create projects |
-| `GET`, `PUT`, `PATCH`, `DELETE` | `/api/projects/{id}/` | Retrieve or modify a project |
-| `GET`, `POST` | `/api/monitors/` | List or create monitors |
-| `GET`, `PUT`, `PATCH`, `DELETE` | `/api/monitors/{id}/` | Retrieve or modify a monitor |
-| `GET` | `/api/monitors/{id}/checks/` | Retrieve the latest recorded checks (up to 100) |
-| `POST` | `/api/monitors/{id}/check-now/` | Execute an immediate health check |
+| Method                          | Endpoint                        | Description                                     |
+| ------------------------------- | ------------------------------- | ----------------------------------------------- |
+| `GET`, `POST`                   | `/api/projects/`                | List or create projects                         |
+| `GET`, `PUT`, `PATCH`, `DELETE` | `/api/projects/{id}/`           | Retrieve or modify a project                    |
+| `GET`, `POST`                   | `/api/monitors/`                | List or create monitors                         |
+| `GET`, `PUT`, `PATCH`, `DELETE` | `/api/monitors/{id}/`           | Retrieve or modify a monitor                    |
+| `GET`                           | `/api/monitors/{id}/checks/`    | Retrieve the latest recorded checks (up to 100) |
+| `POST`                          | `/api/monitors/{id}/check-now/` | Execute an immediate health check               |
 
 Example monitor payload:
 
@@ -385,12 +385,12 @@ Supported monitor intervals are 60, 300, 600, 1800 and 3600 seconds. The deploye
 
 ### Incidents
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/incidents/` | List the current user's incidents; accepts `?status=OPEN`, `ACKNOWLEDGED` or `RESOLVED` |
-| `GET` | `/api/incidents/{id}/` | Retrieve incident details and events |
-| `POST` | `/api/incidents/{id}/acknowledge/` | Acknowledge an active incident |
-| `POST` | `/api/incidents/{id}/notes/` | Add an investigation note |
+| Method | Endpoint                           | Description                                                                             |
+| ------ | ---------------------------------- | --------------------------------------------------------------------------------------- |
+| `GET`  | `/api/incidents/`                  | List the current user's incidents; accepts `?status=OPEN`, `ACKNOWLEDGED` or `RESOLVED` |
+| `GET`  | `/api/incidents/{id}/`             | Retrieve incident details and events                                                    |
+| `POST` | `/api/incidents/{id}/acknowledge/` | Acknowledge an active incident                                                          |
+| `POST` | `/api/incidents/{id}/notes/`       | Add an investigation note                                                               |
 
 Example note payload:
 
@@ -404,11 +404,11 @@ Incidents are opened after the configured number of consecutive failed checks an
 
 ### Notifications
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET`, `POST` | `/api/notification-channels/` | List or create project notification channels |
-| `GET`, `PUT`, `PATCH`, `DELETE` | `/api/notification-channels/{id}/` | Retrieve or modify a channel |
-| `GET` | `/api/notification-logs/` | Review notification delivery logs |
+| Method                          | Endpoint                           | Description                                  |
+| ------------------------------- | ---------------------------------- | -------------------------------------------- |
+| `GET`, `POST`                   | `/api/notification-channels/`      | List or create project notification channels |
+| `GET`, `PUT`, `PATCH`, `DELETE` | `/api/notification-channels/{id}/` | Retrieve or modify a channel                 |
+| `GET`                           | `/api/notification-logs/`          | Review notification delivery logs            |
 
 Channel types currently supported: `EMAIL` and `DISCORD`.
 
@@ -425,13 +425,13 @@ Example Discord channel payload:
 
 ### Analytics and public status pages
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/analytics/overview/` | Monitor counts and active incident count; optional `?project_id=1` |
-| `GET` | `/api/analytics/monitors/{id}/?period=7d` | Per-monitor statistics for `24h`, `7d` or `30d` |
-| `GET`, `POST` | `/api/status-pages/` | List or create the signed-in owner's status pages |
-| `GET`, `PUT`, `PATCH`, `DELETE` | `/api/status-pages/{id}/` | Retrieve or modify a status page |
-| `GET` | `/api/public/status/{slug}/` | Public status data; no JWT required |
+| Method                          | Endpoint                                  | Description                                                        |
+| ------------------------------- | ----------------------------------------- | ------------------------------------------------------------------ |
+| `GET`                           | `/api/analytics/overview/`                | Monitor counts and active incident count; optional `?project_id=1` |
+| `GET`                           | `/api/analytics/monitors/{id}/?period=7d` | Per-monitor statistics for `24h`, `7d` or `30d`                    |
+| `GET`, `POST`                   | `/api/status-pages/`                      | List or create the signed-in owner's status pages                  |
+| `GET`, `PUT`, `PATCH`, `DELETE` | `/api/status-pages/{id}/`                 | Retrieve or modify a status page                                   |
+| `GET`                           | `/api/public/status/{slug}/`              | Public status data; no JWT required                                |
 
 Example status page payload:
 
@@ -476,43 +476,43 @@ python manage.py run_monitor
 
 The project is deployed as a split application:
 
-| Part | Platform | Configuration |
-|---|---|---|
-| Frontend | Vercel | Root: `frontend`; build: `npm run build`; output: `dist` |
-| Backend | Render | Root: `backend`; Gunicorn starts `config.wsgi:application` |
-| Database | Neon | PostgreSQL connection supplied through `DATABASE_URL` |
+| Part      | Platform       | Configuration                                                      |
+| --------- | -------------- | ------------------------------------------------------------------ |
+| Frontend  | Vercel         | Root: `frontend`; build: `npm run build`; output: `dist`           |
+| Backend   | Render         | Root: `backend`; Gunicorn starts `config.wsgi:application`         |
+| Database  | Neon           | PostgreSQL connection supplied through `DATABASE_URL`              |
 | Scheduler | GitHub Actions | Runs `python manage.py run_monitor --limit 100` every five minutes |
 
 ### Required production environment variables
 
 **Render backend**
 
-| Variable | Purpose |
-|---|---|
-| `SECRET_KEY` | Strong, unique Django secret key |
-| `DEBUG` | Set to `False` |
-| `ALLOWED_HOSTS` | Render backend hostname |
-| `DATABASE_URL` | Neon PostgreSQL direct connection URL with SSL required |
-| `CORS_ALLOWED_ORIGINS` | Exact Vercel frontend origin |
-| `CSRF_TRUSTED_ORIGINS` | Trusted HTTPS frontend/backend origins |
-| `SECURE_SSL_REDIRECT` | Set to `True` behind Render HTTPS proxy |
-| `MONITOR_BATCH_SIZE` | Maximum due monitors processed in one command invocation |
-| `MONITOR_FAILURE_THRESHOLD` | Consecutive failures before opening an incident |
-| `MONITOR_RECOVERY_THRESHOLD` | Consecutive successes before resolving an incident |
+| Variable                     | Purpose                                                  |
+| ---------------------------- | -------------------------------------------------------- |
+| `SECRET_KEY`                 | Strong, unique Django secret key                         |
+| `DEBUG`                      | Set to `False`                                           |
+| `ALLOWED_HOSTS`              | Render backend hostname                                  |
+| `DATABASE_URL`               | Neon PostgreSQL direct connection URL with SSL required  |
+| `CORS_ALLOWED_ORIGINS`       | Exact Vercel frontend origin                             |
+| `CSRF_TRUSTED_ORIGINS`       | Trusted HTTPS frontend/backend origins                   |
+| `SECURE_SSL_REDIRECT`        | Set to `True` behind Render HTTPS proxy                  |
+| `MONITOR_BATCH_SIZE`         | Maximum due monitors processed in one command invocation |
+| `MONITOR_FAILURE_THRESHOLD`  | Consecutive failures before opening an incident          |
+| `MONITOR_RECOVERY_THRESHOLD` | Consecutive successes before resolving an incident       |
 
 **Vercel frontend**
 
-| Variable | Purpose |
-|---|---|
+| Variable            | Purpose                                  |
+| ------------------- | ---------------------------------------- |
 | `VITE_API_BASE_URL` | Public Render API root, including `/api` |
 
 **GitHub Actions repository secrets**
 
-| Secret | Purpose |
-|---|---|
-| `DATABASE_URL` | Neon database connection used by the scheduled workflow |
-| `DJANGO_SECRET_KEY` | Django secret key used by the workflow |
-| `DJANGO_SUPERUSER_PASSWORD` | Optional secret for the manual admin-creation workflow |
+| Secret                      | Purpose                                                 |
+| --------------------------- | ------------------------------------------------------- |
+| `DATABASE_URL`              | Neon database connection used by the scheduled workflow |
+| `DJANGO_SECRET_KEY`         | Django secret key used by the workflow                  |
+| `DJANGO_SUPERUSER_PASSWORD` | Optional secret for the manual admin-creation workflow  |
 
 Never commit `.env` files, database URLs, Django secret keys, email credentials or Discord webhook URLs.
 
@@ -568,10 +568,6 @@ Contributions, ideas and bug reports are welcome.
 6. Push the branch and open a Pull Request.
 
 Please do not include real credentials, personal data, database dumps or webhook URLs in issues or pull requests.
-
-## 📄 License
-
-No license has been specified yet. Add a `LICENSE` file before describing this repository as open source or permitting reuse. Until then, all rights remain with the copyright holder.
 
 ---
 
