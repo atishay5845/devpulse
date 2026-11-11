@@ -20,8 +20,6 @@ Track websites and APIs, detect service failures, investigate incidents, and kee
 
 [Live Application](https://devpulse-seven-indol.vercel.app/) · [API Documentation](https://devpulse-api-n21z.onrender.com) · [Report an Issue](../../issues)
 
-> Replace the two deployment URL placeholders above with your actual Vercel and Render URLs before publishing this README.
-
 </div>
 
 ---
@@ -63,13 +61,11 @@ Instead of manually opening every URL to see whether it is working, DevPulse per
 - **Status pages** — manage public status pages and view public service status.
 - **Settings** — manage the signed-in user's profile.
 
-> **Screenshots:** Add screenshots of your deployed application to `docs/screenshots/` and link them here. Suggested captures: `landing.png`, `dashboard.png`, `monitors.png`, `incident-detail.png`, and `status-page.png`.
+<!-- > **Screenshots:** Add screenshots of your deployed application to `docs/screenshots/` and link them here. Suggested captures: `landing.png`, `dashboard.png`, `monitors.png`, `incident-detail.png`, and `status-page.png`. -->
 
-<!-- Example once screenshots have been added:
 <p align="center">
-  <img src="docs/screenshots/dashboard.png" alt="DevPulse dashboard" width="90%" />
+  <img src="frontend/src/docs/screenshots/dashboard.png" alt="DevPulse dashboard" width="90%" />
 </p>
--->
 
 ## 🧰 Tech stack
 
