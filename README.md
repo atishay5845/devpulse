@@ -64,7 +64,16 @@ Instead of manually opening every URL to see whether it is working, DevPulse per
 <!-- > **Screenshots:** Add screenshots of your deployed application to `docs/screenshots/` and link them here. Suggested captures: `landing.png`, `dashboard.png`, `monitors.png`, `incident-detail.png`, and `status-page.png`. -->
 
 <p align="center">
-  <img src="frontend/src/docs/screenshots/dashboard.png" alt="DevPulse dashboard" width="90%" />
+  <img src="frontend/screenshots/landing.png" alt="DevPulse dashboard" width="90%" />
+</p>
+<p align="center">
+  <img src="frontend/screenshots/landing.png" alt="DevPulse dashboard" width="90%" />
+</p>
+<p align="center">
+  <img src="frontend/screenshots/landing.png" alt="DevPulse dashboard" width="90%" />
+</p>
+<p align="center">
+  <img src="frontend/screenshots/landing.png" alt="DevPulse dashboard" width="90%" />
 </p>
 
 ## 🧰 Tech stack
